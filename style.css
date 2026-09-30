@@ -1,0 +1,414 @@
+/* ==========================================================================
+   Tic-Tac-Toe - Modern Responsive Stylesheet
+   VOSC Activity-1
+   Pure CSS3 - Zero External Libraries or Frameworks
+   ========================================================================== */
+
+/* --- CSS Variables & Design Tokens --- */
+:root {
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  --card-bg: rgba(30, 41, 59, 0.85);
+  --card-border: rgba(148, 163, 184, 0.15);
+  --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.1);
+
+  --cell-bg: #1e293b;
+  --cell-border: #334155;
+  --cell-hover-bg: #2d3d54;
+
+  --color-x: #38bdf8;          /* Bright Sky Blue */
+  --color-x-glow: rgba(56, 189, 248, 0.35);
+  --color-o: #f43f5e;          /* Rose Pink */
+  --color-o-glow: rgba(244, 63, 94, 0.35);
+
+  --color-draw: #e2e8f0;       /* Neutral Off-White */
+  --color-win-bg: #064e3b;     /* Deep Emerald */
+  --color-win-border: #10b981; /* Vibrant Emerald */
+  --color-win-text: #a7f3d0;   /* Light Mint */
+  --color-win-glow: rgba(16, 185, 129, 0.4);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-accent: #818cf8;
+
+  --btn-primary-bg: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  --btn-primary-hover: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+  --btn-secondary-bg: #334155;
+  --btn-secondary-hover: #475569;
+
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.25s ease;
+}
+
+/* --- CSS Reset & Global Layout --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: var(--font-family);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  padding: 1.5rem 1rem;
+}
+
+/* --- Container --- */
+.app-wrapper {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* --- Header --- */
+.game-header {
+  text-align: center;
+}
+
+.game-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #e2e8f0 30%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.25rem;
+}
+
+.game-subtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* --- Game Card --- */
+.game-card {
+  width: 100%;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* --- Scoreboard --- */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.score-box {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--cell-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.score-box .player-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.score-box .score-count {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Player Score Themes */
+.score-box.player-x .player-label,
+.score-box.player-x .score-count {
+  color: var(--color-x);
+}
+
+.score-box.tie-box .player-label,
+.score-box.tie-box .score-count {
+  color: var(--text-muted);
+}
+
+.score-box.player-o .player-label,
+.score-box.player-o .score-count {
+  color: var(--color-o);
+}
+
+/* Active Turn Highlighting on Scoreboard */
+.score-box.player-x.active {
+  border-color: var(--color-x);
+  box-shadow: 0 0 12px var(--color-x-glow);
+  transform: translateY(-2px);
+}
+
+.score-box.player-o.active {
+  border-color: var(--color-o);
+  box-shadow: 0 0 12px var(--color-o-glow);
+  transform: translateY(-2px);
+}
+
+/* --- Status Banner --- */
+.status-banner {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all var(--transition-normal);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Status variants */
+.status-banner.win-x {
+  color: var(--color-x);
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--color-x);
+  box-shadow: 0 0 15px var(--color-x-glow);
+}
+
+.status-banner.win-o {
+  color: var(--color-o);
+  background: rgba(244, 63, 94, 0.15);
+  border-color: var(--color-o);
+  box-shadow: 0 0 15px var(--color-o-glow);
+}
+
+.status-banner.draw {
+  color: #fbbf24; /* Amber */
+  background: rgba(251, 191, 36, 0.15);
+  border-color: #fbbf24;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.25);
+}
+
+/* --- 3x3 Game Board Grid --- */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* --- Cell Buttons --- */
+.cell {
+  background: var(--cell-bg);
+  border: 2px solid var(--cell-border);
+  border-radius: var(--radius-md);
+  aspect-ratio: 1 / 1;
+  font-size: 2.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cell:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+}
+
+/* Hover effect on empty, active cells */
+.cell:hover:not(.x):not(.o):not(:disabled) {
+  background: var(--cell-hover-bg);
+  border-color: #475569;
+  transform: scale(1.02);
+}
+
+.cell:active:not(.x):not(.o):not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Mark Styles & Pop-In Animation */
+.cell.x {
+  color: var(--color-x);
+  cursor: not-allowed;
+  animation: markPop 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cell.o {
+  color: var(--color-o);
+  cursor: not-allowed;
+  animation: markPop 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes markPop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Winning Cell Highlight & Pulse */
+.cell.winner {
+  background: var(--color-win-bg) !important;
+  border-color: var(--color-win-border) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 18px var(--color-win-glow);
+  animation: winPulse 1.2s infinite alternate ease-in-out;
+  z-index: 2;
+}
+
+@keyframes winPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 12px var(--color-win-glow);
+  }
+  100% {
+    transform: scale(1.06);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.7);
+  }
+}
+
+/* Disabled board cell appearance */
+.cell:disabled {
+  cursor: default;
+}
+
+/* --- Control Buttons --- */
+.control-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--btn-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--text-main);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.btn-secondary:hover {
+  background: var(--btn-secondary-hover);
+  border-color: rgba(148, 163, 184, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* --- Footer --- */
+.game-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 420px) {
+  body {
+    padding: 1rem 0.75rem;
+  }
+
+  .game-card {
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+
+  .game-title {
+    font-size: 1.85rem;
+  }
+
+  .cell {
+    font-size: 2.25rem;
+  }
+
+  .score-box .score-count {
+    font-size: 1.25rem;
+  }
+
+  .score-box .player-label {
+    font-size: 0.7rem;
+  }
+
+  .control-actions {
+    flex-direction: column;
+  }
+}

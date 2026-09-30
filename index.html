@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A modern, responsive, 2-player Tic-Tac-Toe game built with HTML5, CSS3, and Vanilla JavaScript for VOSC Activity-1.">
+  <title>Tic-Tac-Toe | VOSC Activity-1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Header Section -->
+    <header class="game-header">
+      <h1 class="game-title">Tic-Tac-Toe</h1>
+      <p class="game-subtitle">Classic 2 Player Game</p>
+    </header>
+
+    <!-- Main Game Card -->
+    <main class="game-card">
+      <!-- Scoreboard -->
+      <section class="scoreboard" aria-label="Scoreboard">
+        <div class="score-box player-x active" id="scoreCardX">
+          <span class="player-label">Player X</span>
+          <span class="score-count" id="scoreX">0</span>
+        </div>
+        <div class="score-box tie-box" id="scoreCardTies">
+          <span class="player-label">Draws</span>
+          <span class="score-count" id="scoreTies">0</span>
+        </div>
+        <div class="score-box player-o" id="scoreCardO">
+          <span class="player-label">Player O</span>
+          <span class="score-count" id="scoreO">0</span>
+        </div>
+      </section>
+
+      <!-- Status Display -->
+      <div class="status-banner" id="statusMessage" role="status" aria-live="polite">
+        Player X's Turn
+      </div>
+
+      <!-- 3x3 Game Board Grid -->
+      <div class="game-grid" id="gameBoard" role="grid" aria-label="Tic-Tac-Toe Game Board">
+        <button type="button" class="cell" data-cell-index="0" role="gridcell" aria-label="Square 1, empty"></button>
+        <button type="button" class="cell" data-cell-index="1" role="gridcell" aria-label="Square 2, empty"></button>
+        <button type="button" class="cell" data-cell-index="2" role="gridcell" aria-label="Square 3, empty"></button>
+        <button type="button" class="cell" data-cell-index="3" role="gridcell" aria-label="Square 4, empty"></button>
+        <button type="button" class="cell" data-cell-index="4" role="gridcell" aria-label="Square 5, empty"></button>
+        <button type="button" class="cell" data-cell-index="5" role="gridcell" aria-label="Square 6, empty"></button>
+        <button type="button" class="cell" data-cell-index="6" role="gridcell" aria-label="Square 7, empty"></button>
+        <button type="button" class="cell" data-cell-index="7" role="gridcell" aria-label="Square 8, empty"></button>
+        <button type="button" class="cell" data-cell-index="8" role="gridcell" aria-label="Square 9, empty"></button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="control-actions">
+        <button type="button" class="btn btn-primary" id="newGameBtn">
+          New Game
+        </button>
+        <button type="button" class="btn btn-secondary" id="resetScoreBtn">
+          Reset Score
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+      <p>VOSC Activity-1 Submission &bull; Vanilla Web Project</p>
+    </footer>
+  </div>
+
+  <!-- Game Logic Script -->
+  <script src="script.js"></script>
+</body>
+</html>
