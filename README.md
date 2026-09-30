@@ -97,8 +97,8 @@ No server, installation, Node.js, or build commands are required!
 
 ## 👤 Author
 
-- **Name**: `[Your Name Here]`
-- **GitHub**: `[Your GitHub Profile URL / Username]`
+- **Name**: `[vijay duta]`
+- **GitHub**: `[vijayduta47/-]`
 - **Submission**: VOSC Activity-1
 
 ---
